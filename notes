@@ -1,0 +1,58 @@
+/*    @GetMapping("/sendToUser")
+    public String sendToUser(@RequestParam(name = "sender") String userSender, @RequestParam(name="recipient") String userRecipient, @RequestParam (name = "message") String pMessage) {
+
+        User sender = userRepository.findByUsername(userSender);
+        User recipient = userRepository.findByUsername(userRecipient);
+
+        Message message = new Message(userSender, userRecipient, pMessage);
+        messageRepository.save(message);
+
+        userMessageDao.sendMessageToSpecificUser(sender, recipient, message);
+
+        userRepository.save(sender);
+        userRepository.save(recipient);
+        messageRepository.save(message);
+
+        return "Sender: " + sender.getUsername() + " AND Receiver: " + recipient.getUsername() + "\n Inbound Messages: " + recipient.getInboundMessages();
+
+    }
+
+
+        @GetMapping("/addFriend")
+    public String addFriend(@RequestParam(name = "adder") String userAdding, @RequestParam(name="toAdd") String userAdded) {
+
+        User adding = userRepository.findByUsername(userAdding);
+        User added = userRepository.findByUsername(userAdded);
+        List friendlist = userMessageDao.listAllFriends(userRepository.findByUsername(adding.getUsername()));
+
+        if(friendlist.contains(added)){
+
+            return "User " + added.getUsername() + " is already on your friends list";
+
+        }else{
+
+            userMessageDao.addNewFriend(adding,added);
+            userRepository.save(added);
+            userRepository.save(adding);
+
+        }
+
+        return "User " + added.getUsername() + " is now your friend";
+
+    }*/
+
+
+
+           /* FileInputStream fileInput = new FileInputStream(fileOutput);
+            ObjectInputStream bFileInput = new ObjectInputStream(fileInput);
+            Object object = bFileInput.readObject();
+            deserializedUser = (User) object; */
+
+
+
+
+
+/*    @ElementCollection
+    @CollectionTable(name="LIST_OF_FRIENDS",joinColumns = @JoinColumn(name="ID"))
+    @Column(name="FRIEND")
+    private List<String> listOfFriends;*/
