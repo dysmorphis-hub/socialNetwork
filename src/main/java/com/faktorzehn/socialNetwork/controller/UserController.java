@@ -42,7 +42,7 @@ public class UserController {
     }
 
     @GetMapping("/getUserInfo")
-    public User getUserInfo(@RequestParam(name = "user") String userName) throws IOException {
+    public User getUserInfo(@RequestParam(name = "user") String userName){
 
         User user = this.userRepository.findByUsername(userName);
 
