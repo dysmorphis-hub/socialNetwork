@@ -45,7 +45,6 @@ public class UserController {
     public User getUserInfo(@RequestParam(name = "user") String userName) throws IOException {
 
         User user = this.userRepository.findByUsername(userName);
-        User deserializedUser = new User();
 
         //Object "User" serialization into file:
         try{
@@ -58,6 +57,6 @@ public class UserController {
             System.out.println("LOG: " + e.getMessage());
         }
 
-        return deserializedUser;
+        return user;
     }
 }
