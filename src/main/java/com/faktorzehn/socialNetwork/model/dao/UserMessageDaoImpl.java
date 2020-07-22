@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 @Component
 public class UserMessageDaoImpl implements UserDao, MessageDao {
@@ -83,6 +85,58 @@ public class UserMessageDaoImpl implements UserDao, MessageDao {
         return message;
     }
 
+    @Override
+    public Message sendRecursiveMessageToFriends(String pSender, String pMessage) {
+
+        User sender = this.userRepository.findByUsername(pSender);
+        Message message = new Message(pSender, pMessage);
+        List<User> excludeUser = new ArrayList<>();
+        List<User> finalList = this.getUserChildrenNodes(sender, excludeUser);
+
+
+        finalList.removeAll(Collections.singleton(sender));
+
+        for (User user : finalList) {
+
+            this.sendMessageToSpecificUser(sender, user, message);
+
+        }
+
+        return message;
+    }
+
+    @Override
+    public List<User> getUserChildrenNodes(User currentUser, List<User> exclude) {
+
+        List<User> returnList = new ArrayList<>();
+        exclude.add(currentUser);
+
+        if (currentUser.getListOfFriends().size()>0){
+
+            returnList.addAll(currentUser.getListOfFriends());
+
+            for (User u : currentUser.getListOfFriends()){
+
+                if(!exclude.contains(u)){
+
+                    getUserChildrenNodes(u, exclude).stream().filter(new Predicate<User>() {
+                        @Override
+                        public boolean test(User user) {
+                            return !returnList.contains(user);
+
+                        }
+                    }).forEach(new Consumer<User>() {
+                        @Override
+                        public void accept(User user) {
+                            returnList.add(user);
+                        }
+                    });
+                }
+            }
+        }
+
+        return returnList;
+    }
 
     @Override
     public List<String> getAllReceivers(Message message) {
@@ -99,6 +153,8 @@ public class UserMessageDaoImpl implements UserDao, MessageDao {
     public List<Message> listAllOutbound(User user) {
         return user.getOutboundMessages();
     }
+
+
 
     @Override
     public void sendMessageAll(User sender, Message message) {

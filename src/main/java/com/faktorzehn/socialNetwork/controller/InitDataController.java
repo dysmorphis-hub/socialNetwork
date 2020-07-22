@@ -23,29 +23,32 @@ public class InitDataController {
     @GetMapping("/init")
     public String init(){
 
-        User sender = new User("bojan");
-        User senderFriendOne = new User ("tyler");
-        User senderFriendoneFriend = new User ("david");
+        User bojanRef = new User("bojan");
+        User tylerRef = new User ("tyler");
+        User davidRef = new User ("david");
 
-        User recipient = new User ("john");
-        User recipientFriendOne = new User("tom");
-        User recipientFriendTwo = new User("adam");
-        User recipientNoFriendshipRelation = new User ("peter");
+        User johnRef = new User ("john");
+        User tomRef = new User("tom");
+        User adamRef = new User("adam");
+        User peterRef = new User ("peter");
 
-        this.userMessageDao.addNewFriend(sender, recipient);
-        this.userMessageDao.addNewFriend(sender, senderFriendOne);
-        this.userMessageDao.addNewFriend(recipient, recipientFriendOne);
-        this.userMessageDao.addNewFriend(recipient, recipientFriendTwo);
-        this.userMessageDao.addNewFriend(senderFriendOne, senderFriendoneFriend);
+        User chuckRef = new User ("chuck");
 
-        this.userRepository.save(sender);
-        this.userRepository.save(recipient);
-        this.userRepository.save(recipientFriendOne);
-        this.userRepository.save(recipientFriendTwo);
-        this.userRepository.save(senderFriendOne);
-        this.userRepository.save(senderFriendoneFriend);
-        this.userRepository.save(recipientNoFriendshipRelation);
+        this.userMessageDao.addNewFriend(bojanRef, johnRef);
+        this.userMessageDao.addNewFriend(bojanRef, tylerRef);
+        this.userMessageDao.addNewFriend(johnRef, tomRef);
+        this.userMessageDao.addNewFriend(johnRef, adamRef);
+        this.userMessageDao.addNewFriend(tylerRef, davidRef);
+        this.userMessageDao.addNewFriend(adamRef, chuckRef);
 
+        this.userRepository.save(bojanRef);
+        this.userRepository.save(johnRef);
+        this.userRepository.save(tomRef);
+        this.userRepository.save(adamRef);
+        this.userRepository.save(tylerRef);
+        this.userRepository.save(davidRef);
+        this.userRepository.save(peterRef);
+        this.userRepository.save(chuckRef);
 
         return "init done";
     }

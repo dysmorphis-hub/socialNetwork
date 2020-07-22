@@ -15,7 +15,11 @@ public interface MessageDao {
 
     Message sendMessageToFriendsAndFriends(String sender, String message);
 
+    Message sendRecursiveMessageToFriends(String sender, String message);
+
     List<String> getAllReceivers (Message message);
+
+
 
 
 }

@@ -55,4 +55,14 @@ public class MessageController {
         return this.userMessageDao.sendMessageToFriendsAndFriends(userSender, pMessage);
 
     }
+
+    @GetMapping("/recursiveSend")
+    public Message sendRecursiveToFriends(@RequestParam(name = "sender") String userSender, @RequestParam (name = "message") String pMessage) {
+
+        return this.userMessageDao.sendRecursiveMessageToFriends(userSender, pMessage);
+
+    }
+
+
+
 }

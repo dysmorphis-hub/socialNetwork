@@ -18,6 +18,9 @@ public interface UserDao {
 
     List<Message> listAllOutbound (User user);
 
+    List<User> getUserChildrenNodes(User currentObject, List<User> exclude);
+
+
 
 
 }
